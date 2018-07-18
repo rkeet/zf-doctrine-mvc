@@ -5,7 +5,7 @@
     "homepage": "http://keet.me/",
     "require": {
         "php": "^7.2",
-        "doctrine/doctrine-orm-module": "^1.1",
+        "doctrine/doctrine-orm-module": "^1.1"
     },
     "autoload": {
         "psr-4": {
