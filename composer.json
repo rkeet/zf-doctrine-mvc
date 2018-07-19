@@ -1,18 +1,26 @@
 {
-    "name": "rkeet/zf-doctrine-mvc",
-    "description": "Zend Framework with Doctrine MVC re-usable components",
-    "keywords": ["zend", "framework", "zend framework", "mvc", "zf", "zf3", "doctrine"],
-    "homepage": "http://keet.me/",
-    "require": {
-        "php": "^7.2",
-        "doctrine/doctrine-orm-module": "^1.1"
+  "name" : "rkeet/zf-doctrine-mvc",
+  "description" : "Zend Framework with Doctrine MVC re-usable components",
+  "keywords" : [
+    "zend",
+    "framework",
+    "zend framework",
+    "mvc",
+    "zf",
+    "zf3",
+    "doctrine"
+  ],
+  "homepage" : "http://keet.me/",
+  "require" : {
+    "php" : "^7.2",
+    "doctrine/doctrine-orm-module" : "^1.1"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "Keet\\Mvc\\" : "src/"
     },
-    "autoload": {
-        "psr-4": {
-            "Keet\\Mvc\\": "src/"
-        },
-        "classmap": [
-            "src/Module.php"
-        ]
-    }
+    "classmap" : [
+      "src/Module.php"
+    ]
+  }
 }

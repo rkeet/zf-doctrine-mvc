@@ -14,29 +14,40 @@ abstract class AbstractActionController extends ZendAbstractActionController
      *
      * @return mixed|\Zend\Http\Response
      */
-    public function redirectToRoute ()
+    public function redirectToRoute()
     {
-        if ($this->getRequest()->isXmlHttpRequest()) {
+        if ($this->getRequest()
+                 ->isXmlHttpRequest()) {
             return [
-                'redirect' => call_user_func_array([
-                    $this->url(), 'fromRoute'
-                ], func_get_args())
+                'redirect' => call_user_func_array(
+                    [
+                        $this->url(),
+                        'fromRoute',
+                    ],
+                    func_get_args()
+                ),
             ];
         }
 
-        return call_user_func_array([
-            $this->redirect(), 'toRoute'
-        ], func_get_args());
+        return call_user_func_array(
+            [
+                $this->redirect(),
+                'toRoute',
+            ],
+            func_get_args()
+        );
     }
 
     /**
      * Gets all Trait's used by class and parent classes, see comments @link http://php.net/class_uses
      *
-     * @param $class
+     * @param      $class
      * @param bool $autoload
+     *
      * @return array
      */
-    protected function givenClassAndParentTraits($class, $autoload = true) {
+    protected function givenClassAndParentTraits($class, $autoload = true)
+    {
         $traits = [];
 
         // Get traits of all parent classes
@@ -46,7 +57,7 @@ abstract class AbstractActionController extends ZendAbstractActionController
 
         // Get traits of all parent traits
         $traitsToSearch = $traits;
-        while (!empty($traitsToSearch)) {
+        while ( ! empty($traitsToSearch)) {
             $newTraits = class_uses(array_pop($traitsToSearch), $autoload);
             $traits = array_merge($newTraits, $traits);
             $traitsToSearch = array_merge($newTraits, $traitsToSearch);

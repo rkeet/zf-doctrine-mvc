@@ -41,16 +41,17 @@ abstract class AbstractEntity
     /**
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
     /**
      * @param int $id
-     * @return $this
+     *
+     * @return AbstractEntity
      */
-    public function setId($id)
+    public function setId(int $id) : AbstractEntity
     {
         $this->id = $id;
         return $this;
@@ -60,22 +61,25 @@ abstract class AbstractEntity
      * Set the event manager instance used by this context
      *
      * @param  EventManagerInterface $events
+     *
      * @return AbstractEntity
      */
-    public function setEventManager(EventManagerInterface $events)
+    public function setEventManager(EventManagerInterface $events) : AbstractEntity
     {
         $className = get_class($this);
 
         $nsPos = strpos($className, '\\') ?: 0;
-        $events->setIdentifiers(array_merge(
-            [
-                __CLASS__,
-                $className,
-                substr($className, 0, $nsPos)
-            ],
-            array_values(class_implements($className)),
-            (array) $this->eventIdentifier
-        ));
+        $events->setIdentifiers(
+            array_merge(
+                [
+                    __CLASS__,
+                    $className,
+                    substr($className, 0, $nsPos),
+                ],
+                array_values(class_implements($className)),
+                (array) $this->eventIdentifier
+            )
+        );
 
         $this->events = $events;
 
@@ -89,9 +93,9 @@ abstract class AbstractEntity
      *
      * @return EventManagerInterface
      */
-    public function getEventManager()
+    public function getEventManager() : EventManagerInterface
     {
-        if (!$this->events) {
+        if ( ! $this->events) {
             $this->setEventManager(new EventManager());
         }
 
@@ -104,11 +108,12 @@ abstract class AbstractEntity
      * By default, will re-cast to MvcEvent if another event type is provided.
      *
      * @param  Event $e
+     *
      * @return void
      */
-    public function setEvent(Event $e)
+    public function setEvent(Event $e) : void
     {
-        if (!$e instanceof DoctrineEvent) {
+        if ( ! $e instanceof DoctrineEvent) {
             $eventParams = $e->getParams();
             $e = new DoctrineEvent();
             $e->setParams($eventParams);
@@ -124,9 +129,9 @@ abstract class AbstractEntity
      *
      * @return DoctrineEvent|EventInterface
      */
-    public function getEvent()
+    public function getEvent() : EventInterface
     {
-        if (!$this->event) {
+        if ( ! $this->event) {
             $this->setEvent(new DoctrineEvent());
         }
 
@@ -136,7 +141,7 @@ abstract class AbstractEntity
     /**
      * Gets an array copy
      */
-    public function getArrayCopy()
+    public function getArrayCopy() : array
     {
         $values = get_object_vars($this);
         foreach ($values as $property => $value) {
@@ -167,12 +172,12 @@ abstract class AbstractEntity
     /**
      * Gets associations
      */
-    public function getAssociations()
+    public function getAssociations() : array
     {
         $values = get_object_vars($this);
         foreach ($values as $property => $value) {
             // Skip scalar values
-            if (!is_object($value)) {
+            if ( ! is_object($value)) {
                 unset($values[$property]);
             }
         }

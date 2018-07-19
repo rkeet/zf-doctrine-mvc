@@ -17,6 +17,7 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
 
     /**
      * AbstractDoctrineController constructor.
+     *
      * @param ObjectManager $objectManager
      */
     public function __construct(ObjectManager $objectManager)
@@ -29,23 +30,26 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
      *
      * Based on @link https://stackoverflow.com/a/27121978/1155833
      *
-     * @param string|object $classFQCN
+     * @param string $classFQCN
+     *
      * @return boolean
      * @throws EntityNotFoundException
      */
-    function isEntity(string $classFQCN): bool
+    function isEntity(string $classFQCN) : bool
     {
-        if (!class_exists($classFQCN)) {
+        if ( ! class_exists($classFQCN)) {
 
             throw new ClassNotFoundException(sprintf('Given class FQCN "%s" does not exist.', $classFQCN));
         }
 
-        if (!is_object($classFQCN)) {
+        if ( ! is_object($classFQCN)) {
 
             throw new EntityNotFoundException(sprintf('Given class "%s" is not a Doctrine Entity.', $classFQCN));
         }
 
-        return ! $this->getObjectManager()->getMetadataFactory()->isTransient(ClassUtils::getClass($classFQCN));
+        return ! $this->getObjectManager()
+                      ->getMetadataFactory()
+                      ->isTransient(ClassUtils::getClass($classFQCN));
     }
 
     /**
@@ -53,10 +57,11 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
      * i.e. -> Giving a parameter ['id'] will cause $entity->getId() to be executed and returned as ['id' => 123]
      *
      * @param AbstractEntity $entity
-     * @param array $routeParams
+     * @param array          $routeParams
+     *
      * @return array
      */
-    public function getRouteParams (AbstractEntity $entity, array $routeParams = [])
+    public function getRouteParams(AbstractEntity $entity, array $routeParams = [])
     {
         if (count($routeParams) === 0) {
 
@@ -65,9 +70,11 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
 
         $params = [];
         foreach ($routeParams as $param) {
-            if (!method_exists($entity, 'get' . ucfirst($param))) {
+            if ( ! method_exists($entity, 'get' . ucfirst($param))) {
 
-                trigger_error('Function "' . 'get' . ucfirst($param) . '" does not exist on "' . get_class($entity) . '". Skipping.');
+                trigger_error(
+                    'Function "get' . ucfirst($param) . '" does not exist on "' . get_class($entity) . '". Skipping.'
+                );
                 continue;
             }
 
@@ -80,16 +87,17 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
     /**
      * @return ObjectManager
      */
-    public function getObjectManager(): ObjectManager
+    public function getObjectManager() : ObjectManager
     {
         return $this->objectManager;
     }
 
     /**
      * @param ObjectManager $objectManager
+     *
      * @return AbstractDoctrineActionController
      */
-    public function setObjectManager(ObjectManager $objectManager): AbstractDoctrineActionController
+    public function setObjectManager(ObjectManager $objectManager) : AbstractDoctrineActionController
     {
         $this->objectManager = $objectManager;
         return $this;
