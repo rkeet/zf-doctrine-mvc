@@ -5,6 +5,14 @@ namespace Keet\Mvc\Module;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
+/**
+ * Class AbstractModule
+ *
+ * @package Keet\Mvc\Module
+ *
+ *          Easily use this class to load your modules. The assumption this class does is that you're following the
+ *          Zend Framework 3 standard of having your Module.php inside of your src/ folder.
+ */
 abstract class AbstractModule implements ConfigProviderInterface, AutoloaderProviderInterface
 {
     /**
@@ -37,7 +45,7 @@ abstract class AbstractModule implements ConfigProviderInterface, AutoloaderProv
     {
         $config = [];
 
-        foreach (glob($this->path . '/config/*.php') as $filename) {
+        foreach (glob($this->path . '/../config/*.php') as $filename) {
             $config = array_merge_recursive($config, include $filename);
         }
 
