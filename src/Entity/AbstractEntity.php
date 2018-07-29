@@ -18,7 +18,7 @@ abstract class AbstractEntity
     /**
      * @var int
      * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
