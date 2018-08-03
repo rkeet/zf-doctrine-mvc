@@ -4,6 +4,7 @@ namespace Keet\Mvc\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Util\ClassUtils;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityNotFoundException;
 use Keet\Mvc\Entity\AbstractEntity;
 use Zend\Di\Exception\ClassNotFoundException;
@@ -11,14 +12,14 @@ use Zend\Di\Exception\ClassNotFoundException;
 abstract class AbstractDoctrineActionController extends AbstractActionController
 {
     /**
-     * @var ObjectManager
+     * @var ObjectManager|EntityManager
      */
     protected $objectManager;
 
     /**
      * AbstractDoctrineController constructor.
      *
-     * @param ObjectManager $objectManager
+     * @param ObjectManager|EntityManager $objectManager
      */
     public function __construct(ObjectManager $objectManager)
     {
@@ -85,7 +86,7 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
     }
 
     /**
-     * @return ObjectManager
+     * @return ObjectManager|EntityManager
      */
     public function getObjectManager() : ObjectManager
     {
@@ -93,7 +94,7 @@ abstract class AbstractDoctrineActionController extends AbstractActionController
     }
 
     /**
-     * @param ObjectManager $objectManager
+     * @param ObjectManager|EntityManager $objectManager
      *
      * @return AbstractDoctrineActionController
      */
