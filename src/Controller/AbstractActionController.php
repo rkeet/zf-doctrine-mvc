@@ -2,13 +2,10 @@
 
 namespace Keet\Mvc\Controller;
 
-use Zend\I18n\Translator\TranslatorAwareTrait;
 use Zend\Mvc\Controller\AbstractActionController as ZendAbstractActionController;
 
 abstract class AbstractActionController extends ZendAbstractActionController
 {
-    use TranslatorAwareTrait;
-
     /**
      * Redirect to a route, or pass the url to the view for a javascript redirect
      *
