@@ -10,6 +10,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 class TranslatorPluginFactory implements FactoryInterface
 {
+    /**
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null         $options
+     *
+     * @return TranslatorPlugin|object
+     * @throws Exception
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (!$container->has('translator')) {
