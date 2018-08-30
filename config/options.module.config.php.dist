@@ -1,0 +1,26 @@
+<?php
+
+namespace Keet\Mvc;
+
+/**
+ * The below are options. If you use the configurations provided below, they work out of the box.
+ *
+ * If you have any questions or encounter an issue with any of these, please open an issue.
+ */
+
+use Doctrine\DBAL\Types\Type;
+use Keet\Mvc\Doctrine\UtcDateTimeType;
+
+return [
+    'doctrine' => [
+        'configuration' => [
+            'orm_default' => [
+                'types' => [
+                    // Converts any DateTime object received to have the timezone UTC. This ensures that all dates and
+                    // times stored in the database have the same timezone.
+                    Type::DATETIME => UtcDateTimeType::class,
+                ],
+            ],
+        ],
+    ],
+];
