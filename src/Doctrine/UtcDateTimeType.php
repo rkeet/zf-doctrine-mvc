@@ -33,7 +33,7 @@ class UtcDateTimeType extends DateTimeType
      * @return string
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) : ?string
     {
         if ($value instanceof DateTime) {
             $value->setTimezone($this->getUtc());
@@ -49,16 +49,16 @@ class UtcDateTimeType extends DateTimeType
      * @return DateTime
      * @throws ConversionException
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform) : DateTime
+    public function convertToPHPValue($value, AbstractPlatform $platform) : ?DateTime
     {
-        if ($value === null || $value instanceof \DateTime) {
+        if ($value === null || $value instanceof DateTime) {
 
             return $value;
         }
 
-        if ( ! $this->getUtc() instanceof \DateTimeZone) {
+        if ( ! $this->getUtc() instanceof DateTimeZone) {
 
-            $this->setUtc(new \DateTimeZone('UTC'));
+            $this->setUtc(new DateTimeZone('UTC'));
         }
 
         /** @var DateTime $converted */
@@ -85,7 +85,7 @@ class UtcDateTimeType extends DateTimeType
     public function getUtc()
     {
         if (is_null($this->utc)) {
-            $this->setUtc((new \DateTimeZone('utc')));
+            $this->setUtc((new DateTimeZone('utc')));
         }
 
         return $this->utc;
