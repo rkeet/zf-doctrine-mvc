@@ -45,7 +45,12 @@ abstract class AbstractModule implements ConfigProviderInterface, AutoloaderProv
     {
         $config = [];
 
-        foreach (glob($this->path . '/../config/*.php') as $filename) {
+        $path = $this->path
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config'
+            . DIRECTORY_SEPARATOR . '*.php';
+
+        foreach (glob($path) as $filename) {
             $config = array_merge_recursive($config, include $filename);
         }
 
