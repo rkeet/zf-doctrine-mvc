@@ -25,7 +25,7 @@ trait EnabledTrait
      *
      * @return $this
      */
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled) : self
     {
         $this->enabled = $enabled;
 
