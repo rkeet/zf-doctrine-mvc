@@ -9,12 +9,16 @@ namespace Keet\Mvc;
  */
 
 use Doctrine\DBAL\Types\Type;
+use Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter;
 use Keet\Mvc\Doctrine\UtcDateTimeType;
 
 return [
     'doctrine' => [
         'configuration' => [
             'orm_default' => [
+                'filters' => [
+                    'soft-deleteable' => SoftDeleteableFilter::class,
+                ],
                 'types' => [
                     // Converts any DateTime object received to have the timezone UTC. This ensures that all dates and
                     // times stored in the database have the same timezone.

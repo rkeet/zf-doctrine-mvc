@@ -22,11 +22,13 @@ trait EnabledTrait
 
     /**
      * @param bool $enabled
+     *
      * @return $this
      */
     public function setEnabled(bool $enabled)
     {
         $this->enabled = $enabled;
+
         return $this;
     }
 
